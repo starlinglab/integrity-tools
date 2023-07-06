@@ -3,7 +3,7 @@ import os
 import json
 
 
-class integrity_db:
+class db:
     starling_path = ""
     internal_cache = {}
 
