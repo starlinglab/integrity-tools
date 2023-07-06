@@ -3,7 +3,7 @@ import os
 import json
 
 
-class db:
+class database:
     starling_path = ""
     internal_cache = {}
 
