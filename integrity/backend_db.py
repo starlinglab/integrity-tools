@@ -74,7 +74,6 @@ class database:
 
         :param: hash: the hash to use to find the receipt. It can be any hash found in the receipt.
         """
-        self.get_asset_filename(hash, suffix)
         receipts = self.find_receipt(hash)
         if len(receipts) == 0:
             return None
