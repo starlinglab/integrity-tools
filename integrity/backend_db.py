@@ -75,18 +75,19 @@ class database:
         :param: hash: the hash to use to find the receipt. It can be any hash found in the receipt.
         """
         receipts = self.find_receipt(hash)
-        if len(receipts) == 0:
+        if len(receipts)==0:
             return None
-        receipt = receipts[0]
-        receipt_file = open(f"{receipt['path']}", "r")
+        receipt= receipts[0]
+        receipt_file=open(f"{receipt['path']}","r")
         receipt_json = json.load(receipt_file)
-        data_path = f"{self.starling_path}/internal/{receipt['org']}/{receipt['collection']}/action-archive/{receipt_json['archive']['sha256']}.zip"
-        with zipfile.ZipFile(data_path) as zf:
+        datapath  = f"{self.starling_path}/internal/{receipt['org']}/{receipt['collection']}/action-archive/{receipt_json['archive']['sha256']}.zip"
+        with zipfile.ZipFile(datapath) as zf:
             for filename in zf.namelist():
                 if filename.endswith(suffix):
-                    with zf.open(filename, "r") as f:
+                    with zf.open(filename,"r") as f:
                         file = f.read()
                         return file
+
 
     def get_content_metadata(self, hash):
         """
@@ -121,6 +122,10 @@ class database:
         """
         filename = self.get_asset_filename(hash)
         return self.get_content(hash, f"{filename}.authsign")
+    
+    def get_asset(self, hash):
+        filename = self.get_asset_filename(hash)
+        return self.get_content(hash, f"{filename}")
 
     def get_receipt(self, hash, index=0):
         """
